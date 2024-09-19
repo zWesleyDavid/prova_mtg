@@ -1,14 +1,15 @@
 import { Role } from "../auth/roles/enums/roles.enum";
+import { IsString, IsArray, IsEnum, MinLength } from 'class-validator';
 
 export class UserDto {
     id: string;
 
     @IsString()
-    @MinLenght(4, {message: 'O nome de usuário deve ter pelo menos 4 caracteres!' })
+    @MinLength(4, {message: 'O nome de usuário deve ter pelo menos 4 caracteres!' })
     username: string;
     
     @IsString()
-    @MinLenght(6, {message: 'A senha deve ter pelo menos 6 caracteres' })
+    @MinLength(6, {message: 'A senha deve ter pelo menos 6 caracteres' })
     password: string;
     
     @IsArray()
