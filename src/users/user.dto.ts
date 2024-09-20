@@ -14,7 +14,7 @@ export class UserDto {
     
     @IsArray()
     @IsEnum(Role, { each: true, message: 'Roles inválidas' })
-    roles: [Role];
+    roles: Role[];
 }
 
 

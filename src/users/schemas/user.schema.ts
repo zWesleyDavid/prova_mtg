@@ -17,7 +17,7 @@ export class User {
     password: string;
 
     @Prop()
-    roles: Role;
+    roles: Role[];
 
 }
 

@@ -29,8 +29,29 @@ let UsersService = class UsersService {
         const createdUser = new this.userModel(newUser);
         return createdUser.save();
     }
+    async findAll() {
+        return this.userModel.find().exec();
+    }
     async findByUserName(username) {
-        return this.userModel.findOne({ username }).exec();
+        const user = await this.userModel.findOne({ username }).exec();
+        if (!user) {
+            throw new common_1.NotFoundException(`Usuário com nome '${username}' não existe!`);
+        }
+        return user;
+    }
+    async update(username, update) {
+        const updateUser = await this.userModel.findOneAndUpdate({ username }, { $set: update }, { new: true }).exec();
+        if (!updateUser) {
+            throw new common_1.NotFoundException(`Usuário com nome '${username}' não existe!`);
+        }
+        return update;
+    }
+    async delete(username) {
+        const deleteUser = await this.userModel.findOneAndDelete({ username }).exec();
+        if (!deleteUser) {
+            throw new common_1.NotFoundException(`Usuário com nome '${username}' não existe!`);
+        }
+        return { code: 200, message: `Usuário '${username}' deletado com sucesso!` };
     }
 };
 exports.UsersService = UsersService;

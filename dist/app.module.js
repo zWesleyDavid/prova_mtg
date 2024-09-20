@@ -9,10 +9,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppModule = void 0;
 const common_1 = require("@nestjs/common");
 const comandante_module_1 = require("./comandante/comandante.module");
-const deck_module_1 = require("./deck/deck.module");
 const deckcompleto_module_1 = require("./deckCompleto/deckcompleto.module");
-const app_controller_1 = require("./app.controller");
-const app_service_1 = require("./app.service");
 const mongoose_1 = require("@nestjs/mongoose");
 const users_module_1 = require("./users/users.module");
 const auth_module_1 = require("./auth/auth.module");
@@ -26,16 +23,14 @@ exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
         imports: [
             comandante_module_1.ComandanteModule,
-            deck_module_1.deckModule,
             mongoose_1.MongooseModule.forRoot('mongodb://localhost:27017/MTG'),
             deckcompleto_module_1.DeckCompletoModule,
             users_module_1.UsersModule,
             auth_module_1.AuthModule,
             config_1.ConfigModule.forRoot({ isGlobal: true }),
         ],
-        controllers: [app_controller_1.AppController],
+        controllers: [],
         providers: [
-            app_service_1.AppService,
             {
                 provide: core_1.APP_GUARD,
                 useClass: roles_guard_1.RolesGuard,
