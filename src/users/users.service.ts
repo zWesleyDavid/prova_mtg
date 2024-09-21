@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { UserDto } from './user.dto';
 import { v4 as uuid } from 'uuid';
 import * as bcrypt from 'bcrypt';
-import { User, UserDocument } from './schemas/user.schema';
+import { User} from './schemas/user.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
@@ -11,13 +11,16 @@ import { Model } from 'mongoose';
 export class UsersService {
 
     constructor(
-        @InjectModel(User.name) private userModel: Model<UserDocument>
+        @InjectModel(User.name) private userModel: Model<User>
     ) {}
 
-    async create(newUser: UserDto): Promise<User> {
-        newUser.id = uuid();
-        newUser.password = bcrypt.hashSync(newUser.password, 10);
-        const createdUser = new this.userModel(newUser);
+    async create(UserDto: UserDto): Promise<User> {
+
+        const { username, password, roles } = UserDto;
+
+        UserDto.id = uuid();
+        UserDto.password = await bcrypt.hashSync(UserDto.password, 10);
+        const createdUser = new this.userModel(UserDto);
         return createdUser.save();
     }
 
@@ -46,7 +49,7 @@ export class UsersService {
             throw new NotFoundException(`Usuário com nome '${username}' não existe!`);
         }
 
-        return update;
+        return this.userModel.findOneAndUpdate({ username}, { new: true }).exec();
 
     }
 

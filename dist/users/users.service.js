@@ -23,10 +23,11 @@ let UsersService = class UsersService {
     constructor(userModel) {
         this.userModel = userModel;
     }
-    async create(newUser) {
-        newUser.id = (0, uuid_1.v4)();
-        newUser.password = bcrypt.hashSync(newUser.password, 10);
-        const createdUser = new this.userModel(newUser);
+    async create(UserDto) {
+        const { username, password, roles } = UserDto;
+        UserDto.id = (0, uuid_1.v4)();
+        UserDto.password = await bcrypt.hashSync(UserDto.password, 10);
+        const createdUser = new this.userModel(UserDto);
         return createdUser.save();
     }
     async findAll() {
@@ -44,7 +45,7 @@ let UsersService = class UsersService {
         if (!updateUser) {
             throw new common_1.NotFoundException(`Usuário com nome '${username}' não existe!`);
         }
-        return update;
+        return this.userModel.findOneAndUpdate({ username }, { new: true }).exec();
     }
     async delete(username) {
         const deleteUser = await this.userModel.findOneAndDelete({ username }).exec();
