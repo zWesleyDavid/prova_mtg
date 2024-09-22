@@ -1,8 +1,8 @@
 import { Schema, Document } from 'mongoose';
 
 export const DeckSchema = new Schema({
-  commander: Object,
-  deck: Array,
+  commander: { type: Object, required: true },
+  deck: { type: Array, required: true },
 });
 
 export interface DeckDocument extends Document {

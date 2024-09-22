@@ -8,15 +8,20 @@ import { DeckDocument } from './deck.schema';
 export class DeckCompletoService {
     constructor(
         private readonly httpService: HttpService,
+
         @InjectModel('Deck') private deckModel: Model<DeckDocument>,
     ) { }
 
-    async getCommanderAndDeck() {
-        const commanderUrl = `https://api.magicthegathering.io/v1/cards?name=isshin`;
+    async getCommanderAndDeck(nomeComandante: string) {
+        const commanderUrl = `https://api.magicthegathering.io/v1/cards?name=${encodeURIComponent(nomeComandante)}`;
 
         // Buscar o comandante
         const commanderResponse = await this.httpService.get(commanderUrl).toPromise();
         const commander = commanderResponse.data.cards[0]; // Assumindo que o comandante é o primeiro resultado
+
+        if (commanderResponse.data.cards.length === 0) {
+            throw new Error('Comandante não encontrado!');
+        }
 
         const colors = commander.colors.join(',');
 

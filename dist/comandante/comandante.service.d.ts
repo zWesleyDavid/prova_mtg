@@ -5,5 +5,5 @@ export declare class ComandanteService {
     private readonly nomeComandante;
     private readonly scryfallUrl;
     constructor(httpService: HttpService);
-    getComandanteInfo(): Promise<AxiosResponse<any>>;
+    getComandanteInfo(nomeComandante: string): Promise<AxiosResponse<any>>;
 }

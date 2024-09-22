@@ -1,1 +1,1 @@
-{"version":3,"file":"deck.schema.js","sourceRoot":"","sources":["../../src/deckCompleto/deck.schema.ts"],"names":[],"mappings":";;;AAAA,uCAA4C;AAE/B,QAAA,UAAU,GAAG,IAAI,iBAAM,CAAC;IACnC,SAAS,EAAE,MAAM;IACjB,IAAI,EAAE,KAAK;CACZ,CAAC,CAAC"}
+{"version":3,"file":"deck.schema.js","sourceRoot":"","sources":["../../src/deckCompleto/deck.schema.ts"],"names":[],"mappings":";;;AAAA,uCAA4C;AAE/B,QAAA,UAAU,GAAG,IAAI,iBAAM,CAAC;IACnC,SAAS,EAAE,EAAE,IAAI,EAAE,MAAM,EAAE,QAAQ,EAAE,IAAI,EAAE;IAC3C,IAAI,EAAE,EAAE,IAAI,EAAE,KAAK,EAAE,QAAQ,EAAE,IAAI,EAAE;CACtC,CAAC,CAAC"}

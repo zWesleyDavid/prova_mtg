@@ -8,6 +8,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DeckCompletoController = void 0;
 const common_1 = require("@nestjs/common");
@@ -16,16 +19,17 @@ let DeckCompletoController = class DeckCompletoController {
     constructor(deckCompletoService) {
         this.deckCompletoService = deckCompletoService;
     }
-    async getDeck() {
-        const deck = await this.deckCompletoService.getCommanderAndDeck();
+    async getDeck(comandante) {
+        const deck = await this.deckCompletoService.getCommanderAndDeck(comandante);
         return deck;
     }
 };
 exports.DeckCompletoController = DeckCompletoController;
 __decorate([
-    (0, common_1.Get)(),
+    (0, common_1.Get)(':comandante'),
+    __param(0, (0, common_1.Param)('comandante')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], DeckCompletoController.prototype, "getDeck", null);
 exports.DeckCompletoController = DeckCompletoController = __decorate([

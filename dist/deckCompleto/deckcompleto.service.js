@@ -22,10 +22,13 @@ let DeckCompletoService = class DeckCompletoService {
         this.httpService = httpService;
         this.deckModel = deckModel;
     }
-    async getCommanderAndDeck() {
-        const commanderUrl = `https://api.magicthegathering.io/v1/cards?name=isshin`;
+    async getCommanderAndDeck(nomeComandante) {
+        const commanderUrl = `https://api.magicthegathering.io/v1/cards?name=${encodeURIComponent(nomeComandante)}`;
         const commanderResponse = await this.httpService.get(commanderUrl).toPromise();
         const commander = commanderResponse.data.cards[0];
+        if (commanderResponse.data.cards.length === 0) {
+            throw new Error('Comandante não encontrado!');
+        }
         const colors = commander.colors.join(',');
         const deckUrl = `https://api.magicthegathering.io/v1/cards?colors=${colors}&pageSize=99`;
         const deckResponse = await this.httpService.get(deckUrl).toPromise();

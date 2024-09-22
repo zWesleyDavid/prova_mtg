@@ -1,13 +1,13 @@
 import { Schema, Document } from 'mongoose';
 export declare const DeckSchema: Schema<any, import("mongoose").Model<any, any, any, any, any, any>, {}, {}, {}, {}, import("mongoose").DefaultSchemaOptions, {
+    commander: any;
     deck: any[];
-    commander?: any;
 }, Document<unknown, {}, import("mongoose").FlatRecord<{
+    commander: any;
     deck: any[];
-    commander?: any;
 }>> & import("mongoose").FlatRecord<{
+    commander: any;
     deck: any[];
-    commander?: any;
 }> & {
     _id: import("mongoose").Types.ObjectId;
 }>;

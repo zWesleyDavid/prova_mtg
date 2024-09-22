@@ -4,12 +4,13 @@ import { AxiosResponse } from 'axios';
 
 @Injectable()
 export class ComandanteService {
-  private readonly nomeComandante: string = 'Isshin, Two Heavens as One';
+  
+  private readonly nomeComandante: string;
   private readonly scryfallUrl: string = 'https://api.scryfall.com/cards/named';
 
   constructor(private readonly httpService: HttpService) {}
 
-  async getComandanteInfo(): Promise<AxiosResponse<any>> {
+  async getComandanteInfo(nomeComandante: string): Promise<AxiosResponse<any>> {
     const url = `${this.scryfallUrl}?fuzzy=${encodeURIComponent(this.nomeComandante)}`;
 
     try {

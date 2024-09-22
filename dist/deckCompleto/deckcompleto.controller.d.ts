@@ -2,7 +2,7 @@ import { DeckCompletoService } from './deckcompleto.service';
 export declare class DeckCompletoController {
     private readonly deckCompletoService;
     constructor(deckCompletoService: DeckCompletoService);
-    getDeck(): Promise<{
+    getDeck(comandante: string): Promise<{
         commander: any;
         deck: any;
     }>;

@@ -15,10 +15,9 @@ const axios_1 = require("@nestjs/axios");
 let ComandanteService = class ComandanteService {
     constructor(httpService) {
         this.httpService = httpService;
-        this.nomeComandante = 'Isshin, Two Heavens as One';
         this.scryfallUrl = 'https://api.scryfall.com/cards/named';
     }
-    async getComandanteInfo() {
+    async getComandanteInfo(nomeComandante) {
         const url = `${this.scryfallUrl}?fuzzy=${encodeURIComponent(this.nomeComandante)}`;
         try {
             const response = await this.httpService.get(url).toPromise();

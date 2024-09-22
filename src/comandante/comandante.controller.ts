@@ -1,13 +1,13 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 import { ComandanteService } from './comandante.service';
 
 @Controller('comandante')
 export class ComandanteController {
   constructor(private readonly comandanteService: ComandanteService) {}
 
-  @Get()
-  async getComandante() {
-    const comandanteInfo = await this.comandanteService.getComandanteInfo();
+  @Get(':nomeComandante')
+  async getComandante(@Param('nomeComandante') nomeComandante: string) {
+    const comandanteInfo = await this.comandanteService.getComandanteInfo(nomeComandante);
     return comandanteInfo;
   }
 }

@@ -5,7 +5,7 @@ export declare class DeckCompletoService {
     private readonly httpService;
     private deckModel;
     constructor(httpService: HttpService, deckModel: Model<DeckDocument>);
-    getCommanderAndDeck(): Promise<{
+    getCommanderAndDeck(nomeComandante: string): Promise<{
         commander: any;
         deck: any;
     }>;
