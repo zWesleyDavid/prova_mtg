@@ -26,15 +26,31 @@ let DeckCompletoService = class DeckCompletoService {
         const commanderUrl = `https://api.magicthegathering.io/v1/cards?name=${encodeURIComponent(nomeComandante)}`;
         const commanderResponse = await this.httpService.get(commanderUrl).toPromise();
         const commander = commanderResponse.data.cards[0];
-        if (commanderResponse.data.cards.length === 0) {
+        if (!commanderResponse.data.cards || commanderResponse.data.cards.length === 0) {
             throw new Error('Comandante não encontrado!');
         }
-        const colors = commander.colors.join(',');
-        const deckUrl = `https://api.magicthegathering.io/v1/cards?colors=${colors}&pageSize=99`;
+        let deckUrl = '';
+        if (commander.colors && commander.colors.length > 0) {
+            const colors = commander.colors.join(',');
+            deckUrl = `https://api.magicthegathering.io/v1/cards?colors=${colors}&pageSize=99`;
+        }
+        else {
+            deckUrl = `https://api.magicthegathering.io/v1/cards?pageSize=99`;
+        }
         const deckResponse = await this.httpService.get(deckUrl).toPromise();
-        const deck = deckResponse.data.cards;
+        const deck = deckResponse.data.cards.map(card => ({
+            name: card.name,
+            imageUrl: card.imageUrl,
+            manaCost: card.manaCost,
+            type: card.type,
+        }));
         const deckJson = {
-            commander,
+            commander: {
+                name: commander.name,
+                imageUrl: commander.imageUrl,
+                manaCost: commander.manaCost,
+                type: commander.type,
+            },
             deck,
         };
         const createdDeck = new this.deckModel(deckJson);

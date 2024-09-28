@@ -6,7 +6,12 @@ export declare class DeckCompletoService {
     private deckModel;
     constructor(httpService: HttpService, deckModel: Model<DeckDocument>);
     getCommanderAndDeck(nomeComandante: string): Promise<{
-        commander: any;
+        commander: {
+            name: any;
+            imageUrl: any;
+            manaCost: any;
+            type: any;
+        };
         deck: any;
     }>;
 }

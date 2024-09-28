@@ -3,7 +3,12 @@ export declare class DeckCompletoController {
     private readonly deckCompletoService;
     constructor(deckCompletoService: DeckCompletoService);
     getDeck(comandante: string): Promise<{
-        commander: any;
+        commander: {
+            name: any;
+            imageUrl: any;
+            manaCost: any;
+            type: any;
+        };
         deck: any;
     }>;
 }
