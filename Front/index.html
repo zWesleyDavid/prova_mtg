@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Goudy+Bookletter+1911&display=swap" rel="stylesheet">
+    <title>Cadastro de Usuário</title>
+</head>
+<body>
+  
+  
+
+
+    <section id="home">
+        <header id="header">
+            <img src="img/icons8-arena-de-reunião-mágica-96.png" alt="">
+            <nav class="navbar">
+
+                <span onclick="openUserList()" id="loadUsersButton" >Listar usuários</span>
+                <span>Cadastrar baralho</span>
+                <span>Listar baralhos do usuário</span>
+                <span onclick="cadastrarUsuario()">Cadastrar usuário</span>
+
+            </nav>
+        </header>
+        <form id="registerForm">
+            <h1>Cadastro de Usuário</h1>
+            <div class="labels">
+                <label for="username">Nome:</label>
+                <input type="text" id="username" name="username" required minlength="4">
+        
+                <label for="password">Senha:</label>
+                <input type="password" id="password" name="password" required minlength="6">
+        
+                <label for="roles">Roles:</label>
+                <select id="roles" name="roles" required>
+                    <option value="user">User</option>
+                    <option value="admin">Admin</option>
+                </select>
+                <button onclick="cadastrouUsuario()" type="submit">Registrar</button>
+            </div>
+        </form>
+        
+        <div id="listaUsuarios">
+            <h2>Lista de Usuários</h2>
+         <div id="lista">
+            <ul id="userList"></ul>
+         </div>
+        </div> 
+        
+    </section>
+   
+
+
+ 
+    
+    <script src="script.js"></script>
+</body>
+</html>

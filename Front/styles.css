@@ -1,0 +1,165 @@
+*{
+    font-family: "Goudy Bookletter 1911", serif;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+body{
+    height: 100vh;
+  
+}
+#registerForm{
+   
+    height: 400px;
+    width: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-image: url(img/fundo-do-assoalho-de-madeira_53876-88628.avif);
+    border-radius: 5px;
+    border: 2px solid #511c15;
+    margin-top: 60px;
+
+      /*Mudar para visible*/
+      visibility: visible;
+    
+}
+
+.labels{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+ 
+    width: 90%;
+}
+
+.labels input{
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 2px solid #511c15;
+    background-color: transparent;
+}
+
+.labels label{
+    align-self: flex-start;
+    font-weight: bold;
+}
+
+#registerForm h1{
+    margin-bottom: 20px;
+    font-size: 30px;
+}
+#registerForm button{
+    border-radius:25px;
+    padding: 10px;
+    font-weight: bold;
+    font-size: 18px;
+    width: 150px;
+    color: white;
+    background-color: #511c15;
+    cursor: pointer;
+    border: 2px solid #511c15;
+    transition: 0.2s ease-in-out;
+    margin: 30px;
+}
+#registerForm button:hover{
+    background-color: transparent;
+    color: #511c15;
+}
+#roles{
+    align-self: flex-start;
+    background-color: transparent;
+    border: 2px solid #511c15;
+}
+
+
+
+
+
+#home{
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    background-image: url(img/wallpaper.jpg);
+    background-position: center; /* Centraliza a imagem */
+    background-size: cover;
+}
+
+header{
+    position: absolute;
+    top: 0;
+    border-bottom: 2px solid #511c15;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-image: url(img/fundo-do-assoalho-de-madeira_53876-88628.avif);
+
+    /*Mudar para hidden*/
+    visibility: hidden;
+}
+header img{
+    height: 60px;
+    margin-left: 50px;
+}
+.navbar{
+  
+    width: 800px;
+    display: flex;
+    justify-content: space-between;
+    margin-right: 50px;
+   
+}
+.navbar span{
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+
+
+#listaUsuarios{
+    border: 2px solid #511c15;
+    border-radius: 5px;
+    
+    width: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 400px;
+    min-height: 100px;
+    position: absolute;
+    top: 20%;
+    
+    background-image:  url(img/fundo-do-assoalho-de-madeira_53876-88628.avif);
+    
+    visibility: hidden;
+}
+#listaUsuarios h2{
+    margin-top: 30px;
+    font-size: 30px;
+}
+#listaUsuarios ul{
+    margin: 30px;  
+}
+#listaUsuarios ul li{
+    border: 1px solid #511c15;
+    margin: 5px;
+    border-radius: 5px;
+    padding: 10px;list-style-type: none;
+    font-weight: 300;
+    color: white;
+    background-color: #511c15;
+}
+#lista{
+    height: 300px;
+    overflow-y: auto;
+}
