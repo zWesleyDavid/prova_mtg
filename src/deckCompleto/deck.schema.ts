@@ -8,4 +8,5 @@ export const DeckSchema = new Schema({
 export interface DeckDocument extends Document {
   commander: any;
   deck: any[];
+  
 }

@@ -17,16 +17,6 @@ let ComandanteService = class ComandanteService {
         this.httpService = httpService;
         this.scryfallUrl = 'https://api.scryfall.com/cards/named';
     }
-    async getComandantes() {
-        const url = 'https://api.scryfall.com/cards/search?q=commander';
-        try {
-            const response = await this.httpService.get(url).toPromise();
-            return response.data;
-        }
-        catch (error) {
-            throw new Error('Deu ruim bixo: ' + error.message);
-        }
-    }
     async getComandanteInfo(nomeComandante) {
         const url = `${this.scryfallUrl}?fuzzy=${encodeURIComponent(this.nomeComandante)}`;
         try {

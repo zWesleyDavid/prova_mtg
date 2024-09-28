@@ -14,16 +14,15 @@ export class UsersService {
         @InjectModel(User.name) private userModel: Model<User>
     ) {}
 
-    async create(UserDto: UserDto): Promise<User> {
-
-        const { username, password, roles } = UserDto;
-
-        UserDto.id = uuid();
-        UserDto.password = await bcrypt.hashSync(UserDto.password, 10);
-        const createdUser = new this.userModel(UserDto);
-        return createdUser.save();
-    }
-
+    async userExists(username: string): Promise<boolean> {
+        const user = await this.userModel.findOne({ username });
+        return !!user; 
+      }
+    
+      async create(userDto: UserDto): Promise<User> {
+        const createdUser = new this.userModel(userDto);
+        return createdUser.save(); 
+      }
     async findAll(): Promise<UserDto[]> {
         return this.userModel.find().exec();
     }

@@ -23,10 +23,6 @@ let ComandanteController = class ComandanteController {
         const comandanteInfo = await this.comandanteService.getComandanteInfo(nomeComandante);
         return comandanteInfo;
     }
-    async getComandantes() {
-        const comandantes = await this.comandanteService.getComandantes();
-        return comandantes;
-    }
 };
 exports.ComandanteController = ComandanteController;
 __decorate([
@@ -36,12 +32,6 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], ComandanteController.prototype, "getComandante", null);
-__decorate([
-    (0, common_1.Get)('comandantes'),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", Promise)
-], ComandanteController.prototype, "getComandantes", null);
 exports.ComandanteController = ComandanteController = __decorate([
     (0, common_1.Controller)('comandante'),
     __metadata("design:paramtypes", [comandante_service_1.ComandanteService])

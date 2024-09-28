@@ -18,6 +18,9 @@ const axios_1 = require("@nestjs/axios");
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
 let DeckCompletoService = class DeckCompletoService {
+    findById(id) {
+        throw new Error('Method not implemented.');
+    }
     constructor(httpService, deckModel) {
         this.httpService = httpService;
         this.deckModel = deckModel;

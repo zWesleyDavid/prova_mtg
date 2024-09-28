@@ -4,7 +4,8 @@ import { Model } from 'mongoose';
 export declare class UsersService {
     private userModel;
     constructor(userModel: Model<User>);
-    create(UserDto: UserDto): Promise<User>;
+    userExists(username: string): Promise<boolean>;
+    create(userDto: UserDto): Promise<User>;
     findAll(): Promise<UserDto[]>;
     findByUserName(username: string): Promise<User | null>;
     update(username: string, update: UserDto): Promise<User>;

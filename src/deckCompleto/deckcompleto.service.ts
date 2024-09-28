@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
@@ -8,7 +8,6 @@ import { DeckDocument } from './deck.schema';
 export class DeckCompletoService {
     constructor(
         private readonly httpService: HttpService,
-
         @InjectModel('Deck') private deckModel: Model<DeckDocument>,
     ) { }
 
@@ -17,10 +16,10 @@ export class DeckCompletoService {
 
         // Buscar o comandante
         const commanderResponse = await this.httpService.get(commanderUrl).toPromise();
-        const commander = commanderResponse.data.cards[0]; // Assumindo que o comandante é o primeiro resultado
+        const commander = commanderResponse.data.cards[0]; 
 
-        if (commanderResponse.data.cards.length === 0) {
-            throw new Error('Comandante não encontrado!');
+        if (!commander) {
+            throw new NotFoundException('Comandante não encontrado!');
         }
 
         const colors = commander.colors.join(',');
@@ -41,5 +40,25 @@ export class DeckCompletoService {
         await createdDeck.save();
 
         return deckJson;
+    }
+
+    async editDeck(id: string, updateData: Partial<DeckDocument>) {
+        const updatedDeck = await this.deckModel.findByIdAndUpdate(id, updateData, { new: true });
+
+        if (!updatedDeck) {
+            throw new NotFoundException('Deck não encontrado!');
+        }
+
+        return updatedDeck;
+    }
+
+    async deleteDeck(id: string) {
+        const deletedDeck = await this.deckModel.findByIdAndDelete(id);
+
+        if (!deletedDeck) {
+            throw new NotFoundException('Deck não encontrado!');
+        }
+
+        return { message: 'Deck excluído com sucesso!' };
     }
 }

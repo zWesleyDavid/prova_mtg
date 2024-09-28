@@ -14,8 +14,6 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UsersService = void 0;
 const common_1 = require("@nestjs/common");
-const uuid_1 = require("uuid");
-const bcrypt = require("bcrypt");
 const user_schema_1 = require("./schemas/user.schema");
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
@@ -23,11 +21,12 @@ let UsersService = class UsersService {
     constructor(userModel) {
         this.userModel = userModel;
     }
-    async create(UserDto) {
-        const { username, password, roles } = UserDto;
-        UserDto.id = (0, uuid_1.v4)();
-        UserDto.password = await bcrypt.hashSync(UserDto.password, 10);
-        const createdUser = new this.userModel(UserDto);
+    async userExists(username) {
+        const user = await this.userModel.findOne({ username });
+        return !!user;
+    }
+    async create(userDto) {
+        const createdUser = new this.userModel(userDto);
         return createdUser.save();
     }
     async findAll() {

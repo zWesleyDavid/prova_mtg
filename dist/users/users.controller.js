@@ -20,8 +20,12 @@ let UsersController = class UsersController {
     constructor(usersService) {
         this.usersService = usersService;
     }
-    async register(UserDto) {
-        return this.usersService.create(UserDto);
+    async register(userDto) {
+        const exists = await this.usersService.userExists(userDto.username);
+        if (exists) {
+            throw new common_1.ConflictException('Usuário já cadastrado.');
+        }
+        return this.usersService.create(userDto);
     }
     findAll() {
         return this.usersService.findAll();

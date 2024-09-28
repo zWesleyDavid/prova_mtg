@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, HttpCode, 
+import { Body, ConflictException, Controller, Delete, Get, HttpCode, 
     HttpStatus, Param, Post, Put, UsePipes, ValidationPipe } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { UserDto } from './user.dto';
@@ -11,8 +11,15 @@ export class UsersController {
     @Post('register')
     @UsePipes(new ValidationPipe())
     @HttpCode(HttpStatus.CREATED)
-    async register(@Body() UserDto: UserDto) {
-        return this.usersService.create(UserDto);
+    async register(@Body() userDto: UserDto) {
+    
+      const exists = await this.usersService.userExists(userDto.username);
+      
+      if (exists) {
+        throw new ConflictException('Usuário já cadastrado.'); 
+      }
+
+      return this.usersService.create(userDto);
     }
 
     @Get()

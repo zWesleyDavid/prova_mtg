@@ -11,10 +11,10 @@ export class User extends Document{
     @Prop()
     id: string;
 
-    @Prop({ required: true })
+    @Prop({ required: true,unique:true })
     username: string;
 
-    @Prop({ required: true })
+    @Prop({ required: true  })
     password: string;
 
     @Prop({ type: [String], enum: Role, default: [Role.User] })
