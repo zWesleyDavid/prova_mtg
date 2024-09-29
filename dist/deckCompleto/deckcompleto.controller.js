@@ -15,6 +15,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.DeckCompletoController = void 0;
 const common_1 = require("@nestjs/common");
 const deckcompleto_service_1 = require("./deckcompleto.service");
+const auth_guard_1 = require("../auth/auth.guard");
+const roles_decorator_1 = require("../auth/roles/decorators/roles.decorator");
+const roles_guard_1 = require("../auth/roles/roles.guard");
+const roles_enum_1 = require("../auth/roles/enums/roles.enum");
 let DeckCompletoController = class DeckCompletoController {
     constructor(deckCompletoService) {
         this.deckCompletoService = deckCompletoService;
@@ -22,6 +26,10 @@ let DeckCompletoController = class DeckCompletoController {
     async getDeck(comandante) {
         const deck = await this.deckCompletoService.getCommanderAndDeck(comandante);
         return deck;
+    }
+    async getAllDecks() {
+        const decks = await this.deckCompletoService.getAllDecks();
+        return decks;
     }
 };
 exports.DeckCompletoController = DeckCompletoController;
@@ -32,6 +40,14 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], DeckCompletoController.prototype, "getDeck", null);
+__decorate([
+    (0, common_1.UseGuards)(auth_guard_1.AuthGuard, roles_guard_1.RolesGuard),
+    (0, roles_decorator_1.Roles)(roles_enum_1.Role.Admin),
+    (0, common_1.Get)('/admin/all'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], DeckCompletoController.prototype, "getAllDecks", null);
 exports.DeckCompletoController = DeckCompletoController = __decorate([
     (0, common_1.Controller)('deckcompleto'),
     __metadata("design:paramtypes", [deckcompleto_service_1.DeckCompletoService])

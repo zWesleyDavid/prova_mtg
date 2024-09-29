@@ -22,6 +22,9 @@ let DeckCompletoService = class DeckCompletoService {
         this.httpService = httpService;
         this.deckModel = deckModel;
     }
+    async getAllDecks() {
+        return this.deckModel.find().exec();
+    }
     async getCommanderAndDeck(nomeComandante) {
         const commanderUrl = `https://api.magicthegathering.io/v1/cards?name=${encodeURIComponent(nomeComandante)}`;
         const commanderResponse = await this.httpService.get(commanderUrl).toPromise();
@@ -50,6 +53,7 @@ let DeckCompletoService = class DeckCompletoService {
                 imageUrl: commander.imageUrl,
                 manaCost: commander.manaCost,
                 type: commander.type,
+                playerId: '',
             },
             deck,
         };

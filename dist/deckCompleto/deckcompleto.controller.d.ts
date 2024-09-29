@@ -8,7 +8,11 @@ export declare class DeckCompletoController {
             imageUrl: any;
             manaCost: any;
             type: any;
+            playerId: string;
         };
         deck: any;
     }>;
+    getAllDecks(): Promise<(import("mongoose").Document<unknown, {}, import("./deck.schema").DeckDocument> & import("./deck.schema").DeckDocument & Required<{
+        _id: unknown;
+    }>)[]>;
 }

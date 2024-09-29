@@ -12,19 +12,23 @@ export class DeckCompletoService {
         @InjectModel('Deck') private deckModel: Model<DeckDocument>,
     ) { }
 
+    async getAllDecks() {
+        return this.deckModel.find().exec();
+    }
+
     async getCommanderAndDeck(nomeComandante: string) {
         const commanderUrl = `https://api.magicthegathering.io/v1/cards?name=${encodeURIComponent(nomeComandante)}`;
-    
+
         // Buscar o comandante
         const commanderResponse = await this.httpService.get(commanderUrl).toPromise();
         const commander = commanderResponse.data.cards[0]; // Assumindo que o comandante é o primeiro resultado
-    
+
         if (!commanderResponse.data.cards || commanderResponse.data.cards.length === 0) {
             throw new Error('Comandante não encontrado!');
         }
-    
+
         let deckUrl = '';
-    
+
         // Verificar se o comandante tem cores
         if (commander.colors && commander.colors.length > 0) {
             const colors = commander.colors.join(',');
@@ -34,7 +38,7 @@ export class DeckCompletoService {
             // Se o comandante for incolor, buscar 99 cartas sem filtro de cores
             deckUrl = `https://api.magicthegathering.io/v1/cards?pageSize=99`;
         }
-    
+
         const deckResponse = await this.httpService.get(deckUrl).toPromise();
         const deck = deckResponse.data.cards.map(card => ({
             name: card.name,
@@ -42,7 +46,7 @@ export class DeckCompletoService {
             manaCost: card.manaCost,
             type: card.type,
         }));
-    
+
         // Gerar o JSON apenas com as informações essenciais
         const deckJson = {
             commander: {
@@ -50,15 +54,16 @@ export class DeckCompletoService {
                 imageUrl: commander.imageUrl,
                 manaCost: commander.manaCost,
                 type: commander.type,
+                playerId: '',
             },
             deck,
         };
-    
+
         // Salvar no MongoDB
         const createdDeck = new this.deckModel(deckJson);
         await createdDeck.save();
-    
+
         return deckJson;
     }
-    
+
 }
